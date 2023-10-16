@@ -1,26 +1,30 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { UserWarning } from './UserWarning';
+import { Header } from './components/Header';
+import { TodoList } from './components/TodoList';
+import { Footer } from './components/Footer';
+import { Error } from './components/Error';
+import { TodoProvider } from './context/TodoContext';
 
-function App() {
+const USER_ID = 11526;
+
+export const App: React.FC = () => {
+  if (!USER_ID) {
+    return <UserWarning />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="todoapp">
+      <h1 className="todoapp__title">todos</h1>
+      <TodoProvider>
+        <div className="todoapp__content">
+          <Header />
+          <TodoList />
+          <Footer />
+        </div>
+        <Error />
+      </TodoProvider>
     </div>
   );
-}
-
-export default App;
+};
